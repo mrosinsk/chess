@@ -52,8 +52,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<PlayerTO> createChallengeSugestions(UserTO user) throws PlayerValidationException {
 		return findChallengeService.findChallengeSuggestions(user);
 	}
-	
-	//PRZETESTOWANA w ChallengeDao --> przelotka
+
+	// PRZETESTOWANA w ChallengeDao --> przelotka
 	@Override
 	public List<ChallengeTO> getSentChallenges(UserTO user) {
 		return challengeDao.serchSentChallengeForUser(user);
@@ -64,7 +64,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDao.findReceivedChallengesForPlayer(playerService.getPlayerFromUser(user));
 	}
 
-	//PRZETESTOWANA w ChallengeService --> przelotka
+	// PRZETESTOWANA w ChallengeService --> przelotka
 	@Override
 	public List<ChallengeTO> getAllChallenges(UserTO user) throws PlayerValidationException {
 		return findChallengeService.findExistingChallengeForUser(user);
@@ -110,7 +110,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 		entityManager.persist(newChallenge);
 		return challengeMapper.map(newChallenge);
 	}
-	
 
+	@Override
+	public boolean canMatchBeStarted(ChallengeTO challenge) throws ChallengeValidationException {
+		PlayerTO player = playerMapper.map(challenge.getIdPlayer());
+		PlayerTO opponent = playerMapper.map(challenge.getIdOpponent());
+		if ((challenge.getChallengeStatus() == StatusChallenge.ACCEPT)
+				&& (opponent.getLevel() <= (player.getLevel() + 2) && opponent.getLevel() >= (player.getLevel() - 2))) {
+			return true;
+		}
+		throw new ChallengeValidationException("Can't start match with incorrect challenge bad level criterias!");
+
+	}
 
 }

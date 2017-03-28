@@ -209,5 +209,16 @@ public class ChallengeServiceImplJpaTest {
 		// when
 		challengeService.getReceivedChallenges(user);
 	}
+	
+	//CanMatchBeStarted - positive
+	@Test
+	public void testShouldReturnTrueWhenMatchCanBeStarted() throws ChallengeValidationException{
+		//given
+		ChallengeTO challenge = challengeDao.serchChallenge(2L);
+		//when
+		boolean result = challengeService.canMatchBeStarted(challenge);
+		//then
+		assertTrue(result);
+	}
 
 }

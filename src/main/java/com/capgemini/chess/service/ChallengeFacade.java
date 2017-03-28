@@ -68,4 +68,12 @@ public interface ChallengeFacade {
 	 */
 	PlayerTO showInformationAboutPlayer(ChallengeTO challenge);
 
+	/**
+	 * czy mecz moze byc rozpoczety
+	 * @param challenge
+	 * @return
+	 * @throws ChallengeValidationException
+	 */
+	boolean canMatchBeStarted(ChallengeTO challenge) throws ChallengeValidationException;
+
 }

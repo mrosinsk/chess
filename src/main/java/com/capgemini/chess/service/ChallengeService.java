@@ -82,4 +82,12 @@ public interface ChallengeService {
 	 */
 	ChallengeTO saveChallenge(Long idPlayer, Long idOpponent, StatusChallenge challengeStatus);
 
+	/**
+	 * czy mecz moze byc rozpoczety
+	 * @param challenge
+	 * @return
+	 * @throws ChallengeValidationException
+	 */
+	boolean canMatchBeStarted(ChallengeTO challenge) throws ChallengeValidationException;
+
 }

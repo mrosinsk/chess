@@ -67,6 +67,9 @@ public class ChallengeFacadeImpl implements ChallengeFacade{
 		return findChallengeService.showInformationAboutPlayer(challenge);
 	}
 	 
-	 
+	@Override
+	public boolean canMatchBeStarted(ChallengeTO challenge) throws ChallengeValidationException {
+		return challengeService.canMatchBeStarted(challenge);
+	}
 
 }
